@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include "person.h"
+#include "Elevator.h"
+
 
 class Building {
 private:
@@ -11,9 +13,8 @@ private:
 	} typedef Floor;
 
 	int numFloors;
-	int currFloor = 0;
-	bool goingUp = 1;
 	std::vector<Floor> floors;
+	Elevator el;
 
 public:
 	Building() {
@@ -54,6 +55,11 @@ public:
 					<< per.dest() << " from floor " << per.startFloor() << std::endl;
 			}
 		}
-	} 
+	}
 
+	void run() {
+		while (true) {
+			// do stuff
+		}
+	}
 };
