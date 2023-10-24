@@ -16,21 +16,13 @@ public:
 		this->desiredFloor = desiredFloor;
 	}
 
-	int dest() {
-		return this->desiredFloor;
+	bool operator== (const Person a) {
+		return this->name == a.name;
 	}
 
-	int startFloor() {
-		return this->startFloor;
-	}
+	int dest() { return this->desiredFloor; }
 
-	std::string getName() {
-		return this->name;
-	}
+	int getStartFloor() { return this->startFloor; }
 
-	// Destructor
-	~Person() {
-		delete this;
-	}
-
+	std::string getName() { return this->name; }
 };
