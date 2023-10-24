@@ -8,13 +8,16 @@ int main() {
 	std::cout << "Hello" << std::endl;
 	std::vector<Person> people;
 
-	for (int i = 0; i < 50; i++) {
+	for (int i = 0; i < 10; i++) {
 		people.push_back(Person(std::to_string(i), rand() % 10, rand() % 10));
 	}
 
 	Building build = Building(10, people);
 
+	
 	build.printBuilding();
-
+	build.run();
+	std::cout << "-------------------------------------------------\n";
+	build.printBuilding();
 	return 0;
 }
