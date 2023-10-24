@@ -1,18 +1,13 @@
 #pragma once
-#include <iostream>
 #include <vector>
 #include "person.h"
 #include "Elevator.h"
+#include "Common.h"
+
 
 
 class Building {
 private:
-	struct Floor {
-		int floorNum;
-		std::vector<Person> goingUp;
-		std::vector<Person> goingDown;
-	} typedef Floor;
-
 	int numFloors;
 	std::vector<Floor> floors;
 	Elevator el;
@@ -23,6 +18,7 @@ public:
 		for (int i = 0; i < this->numFloors; i++) {
 			this->floors.push_back({ i });
 		}
+		el = Elevator(this->numFloors-1);
 	}
 
 	Building(int numFloors, std::vector<Person> people) {
@@ -31,12 +27,13 @@ public:
 			this->floors.push_back({ i });
 		}
 		populate(people);
+		el = Elevator(this->numFloors - 1);
 	}
 
 	void populate(std::vector<Person> people) {
 		for (Person per : people) {
-			(per.startFloor() < per.dest()) ?
-				floors[per.startFloor()].goingUp.push_back(per) : floors[per.startFloor()].goingDown.push_back(per);
+			(per.getStartFloor() < per.dest()) ?
+				floors[per.getStartFloor()].goingUp.push_back(per) : floors[per.getStartFloor()].goingDown.push_back(per);
 		}
 	}
 
@@ -47,20 +44,19 @@ public:
 			
 			for (auto per : floor.goingUp) {
 				std::cout << per.getName() << " is going to floor "
-					<< per.dest() << " from floor " << per.startFloor() << std::endl;
+					<< per.dest() << " from floor " << per.getStartFloor() << std::endl;
 			}
 
 			std::cout << "GOING DOWN:" << std::endl;
 			for (auto per : floor.goingDown) {
 				std::cout << per.getName() << " is going to floor "
-					<< per.dest() << " from floor " << per.startFloor() << std::endl;
+					<< per.dest() << " from floor " << per.getStartFloor() << std::endl;
 			}
 		}
 	}
 
 	void run() {
-		while (true) {
-			// do stuff
-		}
+		int currentFloor = el.getCurrFloor();
+		el.move(floors[currentFloor]);
 	}
 };
